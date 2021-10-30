@@ -2,25 +2,25 @@
   <nav class="navbar orange lighten-1">
     <div class="nav-wrapper">
       <div class="navbar-left">
-        <a href="#" @click.stop="$emit('click')">
+        <a href="#" @click.prevent="$emit('click')">
           <i class="material-icons black-text">dehaze</i>
         </a>
-        <span class="black-text">{{dateFilter}}</span>
+        <span class="black-text">{{date | date('datetime')}}</span>
       </div>
 
       <ul class="right hide-on-small-and-down">
         <li>
           <a
-            class="dropdown-trigger black-text"
-            href="#"
-            data-target="dropdown"
-            ref="dropdown"
+              class="dropdown-trigger black-text"
+              href="#"
+              data-target="dropdown"
+              ref="dropdown"
           >
             USER NAME
             <i class="material-icons right">arrow_drop_down</i>
           </a>
 
-          <ul id="dropdown" class="dropdown-content">
+          <ul id='dropdown' class='dropdown-content'>
             <li>
               <router-link to="/profile" class="black-text">
                 <i class="material-icons">account_circle</i>Профиль
@@ -39,49 +39,33 @@
   </nav>
 </template>
 
+
 <script>
-// import dateFilter from "@/filter/date.filter";
 export default {
   data: () => ({
     date: new Date(),
     interval: null,
     dropdown: null,
   }),
-  emits: ["click"],
-  name: "NavBar",
   methods: {
     logout() {
-      console.log('Logout');
-      this.$router.push('/login?message=logout');
-    },
+      console.log('Logout')
+      this.$router.push('/login?message=logout')
+    }
   },
   mounted() {
     this.interval = setInterval(() => {
-      this.date = new Date();
-    }, 1000);
-    // eslint-disable-next-line no-undef
+      this.date = new Date()
+    }, 1000)
     this.dropdown = M.Dropdown.init(this.$refs.dropdown, {
-      constrainWidth: true,
-    });
+      constrainWidth: false
+    })
   },
-  beforeUnmount() {
-    clearInterval(this.interval);
+  beforeDestroy() {
+    clearInterval(this.interval)
     if (this.dropdown && this.dropdown.destroy) {
-      this.dropdown.destroy;
+      this.dropdown.destroy()
     }
-  },
-  computed: {
-    dateFilter() {
-      const options = {
-        day: "2-digit",
-        month: "long",
-        year: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit",
-      };
-      return new Intl.DateTimeFormat("ru-RU", options).format(new Date(this.date));
-    },
-  },
-};
+  }
+}
 </script>

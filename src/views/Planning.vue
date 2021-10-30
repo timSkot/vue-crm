@@ -13,17 +13,11 @@
         </p>
         <div class="progress" >
           <div
-            class="determinate green"
-            style="width:40%"
+              class="determinate green"
+              style="width:40%"
           ></div>
         </div>
       </div>
     </section>
   </div>
 </template>
-
-<script>
-export default {
-  name: "Planning",
-};
-</script>

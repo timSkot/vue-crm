@@ -53,6 +53,6 @@
 
 <script>
 export default {
-  name: "Home",
-};
+  name: 'home'
+}
 </script>
